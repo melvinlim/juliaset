@@ -11,7 +11,8 @@
 
 #define MAXITER 255
 
-int main() {
+int main(){
+	int histogram[256]={0};
 	int iter;
 	double zx,zy,zxs,zys;
 	double cx,cy;
@@ -22,10 +23,10 @@ int main() {
 
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_Surface *screen = SDL_SetVideoMode(XLEN, YLEN, 32, SDL_SWSURFACE);
-	if (SDL_MUSTLOCK(screen)) SDL_LockSurface(screen);
+	if(SDL_MUSTLOCK(screen)) SDL_LockSurface(screen);
 
-	for (int i=0;i<YLEN;i++){
-		for (int j=0;j<XLEN;j++){
+	for(int i=0;i<YLEN;i++){
+		for(int j=0;j<XLEN;j++){
 			iter=0;
 			zx=(j*3.5/XLEN)-2.5;
 			zy=(i*2.0/YLEN)-1;
@@ -41,6 +42,8 @@ int main() {
 				zxs=zxs*zxs;
 				iter++;
 			}
+			if(iter>MAXITER)	iter=MAXITER;
+			histogram[iter]++;
 			if(iter>=MAXITER){
 				red=green=blue=0;
 			}else if (iter==1){
@@ -54,17 +57,23 @@ int main() {
 			}else{
 				red=green=blue=25;
 				//red=green=blue=255.0-iter;
-				if((i==YLEN/2))
-					printf("%d %d: %f\n",i,j,red);
+//				if((i==YLEN/2))
+//					printf("%d %d: %f\n",i,j,red);
 			}
 			*((Uint32*)screen->pixels+i*XLEN+j)=SDL_MapRGBA(screen->format,red,green,blue,ALPHA);
 //			*((Uint32*)screen->pixels+i*XLEN+j)=SDL_MapRGBA(screen->format,i*255.0/YLEN,j*255.0/XLEN,255-i*255.0/YLEN,ALPHA);
 		}
 	}
 
-	if (SDL_MUSTLOCK(screen)) SDL_UnlockSurface(screen);
+	for(int i=0;i<MAXITER;i++){
+		if(histogram[i]>0){
+			printf("%d:%d\n",i,histogram[i]);
+		}
+	}
+
+	if(SDL_MUSTLOCK(screen)) SDL_UnlockSurface(screen);
 	//  SDL_Flip(screen); 
-	//  SDL_Quit();
+//	 SDL_Quit();
 
 	printf("Graph of the Julia Set.  Written in C.  Converted to Javascript through Emscripten.\n");
 	return 0;
