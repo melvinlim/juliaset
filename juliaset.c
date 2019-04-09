@@ -15,13 +15,16 @@ void test(){
 	printf("test\n");
 }
 
-void draw(){
+void draw(double cx){
+//void draw(){
 	int histogram[256]={0};
 	int iter;
 	double zx,zy,zxs,zys;
-	double cx,cy;
+	double cy;
+//	double cx;
 	double tmp;
 	double red,green,blue;
+	printf("%f\n",cx);
 	cx=-0.835;
 	cy=-0.2321;
 
@@ -74,11 +77,11 @@ void draw(){
 		}
 	}
 
-	for(int i=0;i<MAXITER;i++){
-		if(histogram[i]>0){
-			printf("%d:%d\n",i,histogram[i]);
-		}
-	}
+//	for(int i=0;i<MAXITER;i++){
+//		if(histogram[i]>0){
+//			printf("%d:%d\n",i,histogram[i]);
+//		}
+//	}
 
 	if(SDL_MUSTLOCK(screen)) SDL_UnlockSurface(screen);
 	//  SDL_Flip(screen); 

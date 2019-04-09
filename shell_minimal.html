@@ -45,13 +45,27 @@
         to {transform: rotate(360deg);}
       }
 
+			.slider {
+				-webkit-appearance: none;
+				appearance: none;
+				background: #999999/* Grey background */
+			}
     </style>
   </head>
   <body style="background-color:#000000;color:white;">
-		<div class="slidecontainer">
-			<input type="range" min="1" max="100" value="50" class="slider" id="myRange" style="background-color:#000000;color:white;">
+		<div style="display:table;">
+			<div style="display:table-row;">
+				<div style="display:table-cell;">
+					<p>real part of constant.</p>
+				</div>
+				<div style="display:table-cell;" class="slidecontainer">
+					<input type="range" min="-2.5" max="1.0" value="0.835" class="slider" id="mySlider">
+				</div>
+				<div style="display:table-cell;">
+					<p id="slider_value"></p>
+				</div>
+			</div>
 		</div>
-		<p id="demo" onclick="myFunction()">Click me to change my text color.</p>
     <hr/>
     <figure style="overflow:visible;" id="spinner"><div class="spinner"></div><center style="margin-top:0.5em"><strong>emscripten</strong></center></figure>
     <div class="emscripten" id="status">Downloading...</div>
@@ -144,25 +158,17 @@
     </script>
     {{{ SCRIPT }}}
 		<script>
-		//int_sqrt = Module.cwrap('int_sqrt', 'number', ['number'])
-		function myFunction() {
-//			test=Module.cwrap('test',null);
-//			test();
-			draw=Module.cwrap('draw',null);
-			draw();
-		//	alert("asdf");
-		//  document.getElementById("demo").style.color = "red";
-		}
-		var slider = document.getElementById("myRange");
-		var output = document.getElementById("demo");
+		var slider = document.getElementById("mySlider");
+		var output = document.getElementById("slider_value");
+		slider.step="0.05"
 		output.innerHTML = slider.value; // Display the default slider value
-
-		// Update the current slider value (each time you drag the slider handle)
 		slider.oninput = function() {
 			output.innerHTML = this.value;
 		}
 		slider.onchange = function() {
-			myFunction();
+//			draw=Module.cwrap('draw',null);
+			draw=Module.cwrap('draw',null,['double']);
+			draw(this.value);
 		}
 		</script>
   </body>
