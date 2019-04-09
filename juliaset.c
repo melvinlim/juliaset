@@ -9,23 +9,17 @@
 #define XLEN 512
 #define YLEN 512
 
+#define CXINIT -0.835
+
 #define MAXITER 255
 
-void test(){
-	printf("test\n");
-}
-
 void draw(double cx){
-//void draw(){
 	int histogram[256]={0};
 	int iter;
 	double zx,zy,zxs,zys;
 	double cy;
-//	double cx;
 	double tmp;
 	double red,green,blue;
-	printf("%f\n",cx);
-	cx=-0.835;
 	cy=-0.2321;
 
 	SDL_Init(SDL_INIT_VIDEO);

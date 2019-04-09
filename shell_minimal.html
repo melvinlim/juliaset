@@ -59,7 +59,7 @@
 					<p>real part of constant.</p>
 				</div>
 				<div style="display:table-cell;" class="slidecontainer">
-					<input type="range" min="-2.5" max="1.0" value="0.835" class="slider" id="mySlider">
+					<input type="range" min="-2.5" max="1.0" value="-0.835" class="slider" id="mySlider">
 				</div>
 				<div style="display:table-cell;">
 					<p id="slider_value"></p>
@@ -86,6 +86,11 @@
       var spinnerElement = document.getElementById('spinner');
 
       var Module = {
+/*
+				onRuntimeInitialized: function() {
+					Module._draw(-0.835);
+				}
+*/
         preRun: [],
         postRun: [],
         print: (function() {
