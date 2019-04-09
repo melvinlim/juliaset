@@ -10,17 +10,16 @@
 #define YLEN 512
 
 #define CXINIT -0.835
+#define CYINIT -0.230
 
 #define MAXITER 255
 
-void draw(double cx){
+void draw(double cx,double cy){
 	int histogram[256]={0};
 	int iter;
 	double zx,zy,zxs,zys;
-	double cy;
 	double tmp;
 	double red,green,blue;
-	cy=-0.2321;
 
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_Surface *screen = SDL_SetVideoMode(XLEN, YLEN, 32, SDL_SWSURFACE);
@@ -84,7 +83,7 @@ void draw(double cx){
 }
 
 int main(){
-	draw(CXINIT);
+	draw(CXINIT,CYINIT);
 	printf("Graph of the Julia Set.  Written in C.  Converted to Javascript through Emscripten.\n");
 	printf("Move the sliders to change the picture.\n");
 	return 0;

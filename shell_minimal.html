@@ -70,7 +70,7 @@
 					<p>imag part of constant.</p>
 				</div>
 				<div style="display:table-cell;" class="slidecontainer">
-					<input type="range" min="-1.0" max="1.0" value="-0.2321" class="slider" id="mySliderY">
+					<input type="range" min="-1.0" max="1.0" value="-0.230" class="slider" id="mySliderY">
 				</div>
 				<div style="display:table-cell;">
 					<p id="slider_value_y"></p>
@@ -92,11 +92,18 @@
     <textarea style="background-color:#000000;color:white;" class="emscripten" id="output" rows="8"></textarea>
     <hr>
     <script type='text/javascript'>
+			var draw;
       var statusElement = document.getElementById('status');
       var progressElement = document.getElementById('progress');
       var spinnerElement = document.getElementById('spinner');
 
       var Module = {
+				onRuntimeInitialized: function() {
+					draw=Module.cwrap('draw',null,['double','double']);
+//					Module._main();
+//					draw=Module.cwrap('draw',null,['double']);
+//					draw(-0.835);
+				},
         preRun: [],
         postRun: [],
         print: (function() {
@@ -157,12 +164,6 @@
           this.totalDependencies = Math.max(this.totalDependencies, left);
           Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
         }
-/*
-				onRuntimeInitialized: function() {
-					draw=Module.cwrap('draw',null,['double']);
-					draw(-0.835);
-				}
-*/
       };
       Module.setStatus('Downloading...');
       window.onerror = function() {
@@ -175,27 +176,27 @@
     </script>
     {{{ SCRIPT }}}
 		<script>
-//			var	draw=Module.cwrap('draw',null,['double']);
 			var sliderX = document.getElementById("mySliderX");
 			var sliderOutputX = document.getElementById("slider_value_x");
 			sliderX.step="0.05"
 			sliderOutputX.innerHTML = sliderX.value; // Display the default slider value
-			sliderX.oninput = function() {
-				sliderOutputX.innerHTML = this.value;
-				draw=Module.cwrap('draw',null,['double']);
-				draw(this.value);
-			}
-			sliderX.onchange = function() {
-			}
-
 			var sliderY = document.getElementById("mySliderY");
 			var sliderOutputY = document.getElementById("slider_value_y");
 			sliderY.step="0.05"
 			sliderOutputY.innerHTML = sliderY.value; // Display the default slider value
+
+			sliderX.oninput = function() {
+				sliderOutputX.innerHTML = this.value;
+//				draw=Module.cwrap('draw',null,['double']);
+				draw(sliderX.value,sliderY.value);
+			}
+			sliderX.onchange = function() {
+			}
+
 			sliderY.oninput = function() {
 				sliderOutputY.innerHTML = this.value;
-				draw=Module.cwrap('draw',null,['double']);
-				draw(this.value);
+//				draw=Module.cwrap('draw',null,['double']);
+				draw(sliderX.value,sliderY.value);
 			}
 			sliderY.onchange = function() {
 			}
