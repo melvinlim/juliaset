@@ -18,7 +18,9 @@
 SDL_Surface *screen;
 
 void draw(const double cx,const double cy){
+#ifdef HISTOGRAM
 	int histogram[MAXITER]={0};
+#endif
 	int iter;
 	double zx,zy,zxs,zys;
 	double tmp;
@@ -42,25 +44,9 @@ void draw(const double cx,const double cy){
 				zxs=zx*zx;
 				iter++;
 			}
+#ifdef HISTOGRAM
 			histogram[iter]++;
-/*
-			if(iter>=MAXITER){
-				red=green=blue=0;
-			}else if (iter==1){
-				red=green=blue=200;
-			}else if (iter==2){
-				red=green=blue=150;
-			}else if (iter==3){
-				red=green=blue=100;
-			}else if (iter==4){
-				red=green=blue=50;
-			}else{
-				red=green=blue=25;
-				//red=green=blue=255.0-iter;
-//				if((i==YLEN/2))
-//					printf("%d %d: %f\n",i,j,red);
-			}
-*/
+#endif
 			if(iter<=32){
 				red=(iter<<3)-1;
 				green=blue=0;
