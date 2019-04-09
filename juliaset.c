@@ -81,5 +81,11 @@ void draw(double cx){
 	//  SDL_Flip(screen); 
 //	 SDL_Quit();
 
+}
+
+int main(){
+	draw(CXINIT);
 	printf("Graph of the Julia Set.  Written in C.  Converted to Javascript through Emscripten.\n");
+	printf("Move the sliders to change the picture.\n");
+	return 0;
 }
