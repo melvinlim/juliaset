@@ -14,15 +14,16 @@
 
 #define MAXITER 255
 
-void draw(double cx,double cy){
+SDL_Surface *screen;
+
+void draw(const double cx,const double cy){
 	int histogram[256]={0};
 	int iter;
 	double zx,zy,zxs,zys;
 	double tmp;
 	double red,green,blue;
 
-	SDL_Init(SDL_INIT_VIDEO);
-	SDL_Surface *screen = SDL_SetVideoMode(XLEN, YLEN, 32, SDL_SWSURFACE);
+//SDL_Surface *screen = SDL_SetVideoMode(XLEN, YLEN, 32, SDL_SWSURFACE);
 	if(SDL_MUSTLOCK(screen)) SDL_LockSurface(screen);
 
 	for(int i=0;i<YLEN;i++){
@@ -83,6 +84,8 @@ void draw(double cx,double cy){
 }
 
 int main(){
+	SDL_Init(SDL_INIT_VIDEO);
+	screen = SDL_SetVideoMode(XLEN, YLEN, 32, SDL_SWSURFACE);
 	draw(CXINIT,CYINIT);
 	printf("Graph of the Julia Set.  Written in C.  Converted to Javascript through Emscripten.\n");
 	printf("Move the sliders to change the picture.\n");
