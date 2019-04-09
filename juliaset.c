@@ -12,7 +12,7 @@
 #define CXINIT -0.835
 #define CYINIT -0.230
 
-#define MAXITER 192
+#define MAXITER 96
 //#define HISTOGRAM
 
 SDL_Surface *screen;
@@ -61,18 +61,18 @@ void draw(const double cx,const double cy){
 //					printf("%d %d: %f\n",i,j,red);
 			}
 */
-			if(iter<=64){
-				red=iter*4-1;
+			if(iter<=32){
+				red=iter*8-1;
 				green=blue=0;
 			//	red=green=blue=iter/90.0*255;
-			}else if(iter<=128){
-				green=(iter-64)*4-1;
-				red=255;
+			}else if(iter<=64){
+				green=(iter-32)*8-1;
+//				red=255;
 				red=0;
 				blue=0;
 			}else{
-				blue=(iter-128)*4-1;
-				red=green=255;
+				blue=(iter-64)*8-1;
+//				red=green=255;
 				red=green=0;
 				//red=green=blue=0;
 			}
