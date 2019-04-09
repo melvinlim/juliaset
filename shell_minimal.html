@@ -48,6 +48,7 @@
     </style>
   </head>
   <body style="background-color:#000000;color:white;">
+		<p id="demo" onclick="myFunction()">Click me to change my text color.</p>
     <hr/>
     <figure style="overflow:visible;" id="spinner"><div class="spinner"></div><center style="margin-top:0.5em"><strong>emscripten</strong></center></figure>
     <div class="emscripten" id="status">Downloading...</div>
@@ -139,5 +140,16 @@
       };
     </script>
     {{{ SCRIPT }}}
+		<script>
+		//int_sqrt = Module.cwrap('int_sqrt', 'number', ['number'])
+		function myFunction() {
+//			test=Module.cwrap('test',null);
+//			test();
+			draw=Module.cwrap('draw',null);
+			draw();
+		//	alert("asdf");
+		//  document.getElementById("demo").style.color = "red";
+		}
+		</script>
   </body>
 </html>

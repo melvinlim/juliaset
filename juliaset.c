@@ -11,7 +11,11 @@
 
 #define MAXITER 255
 
-int main(){
+void test(){
+	printf("test\n");
+}
+
+void draw(){
 	int histogram[256]={0};
 	int iter;
 	double zx,zy,zxs,zys;
@@ -42,8 +46,8 @@ int main(){
 				zxs=zxs*zxs;
 				iter++;
 			}
-			if(iter>MAXITER)	iter=MAXITER;
 			histogram[iter]++;
+/*
 			if(iter>=MAXITER){
 				red=green=blue=0;
 			}else if (iter==1){
@@ -60,6 +64,11 @@ int main(){
 //				if((i==YLEN/2))
 //					printf("%d %d: %f\n",i,j,red);
 			}
+*/
+			if(iter<=90)
+				red=green=blue=iter/90.0*255;
+			else
+				red=green=blue=0;
 			*((Uint32*)screen->pixels+i*XLEN+j)=SDL_MapRGBA(screen->format,red,green,blue,ALPHA);
 //			*((Uint32*)screen->pixels+i*XLEN+j)=SDL_MapRGBA(screen->format,i*255.0/YLEN,j*255.0/XLEN,255-i*255.0/YLEN,ALPHA);
 		}
@@ -76,5 +85,4 @@ int main(){
 //	 SDL_Quit();
 
 	printf("Graph of the Julia Set.  Written in C.  Converted to Javascript through Emscripten.\n");
-	return 0;
 }
