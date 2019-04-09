@@ -48,6 +48,9 @@
     </style>
   </head>
   <body style="background-color:#000000;color:white;">
+		<div class="slidecontainer">
+			<input type="range" min="1" max="100" value="50" class="slider" id="myRange" style="background-color:#000000;color:white;">
+		</div>
 		<p id="demo" onclick="myFunction()">Click me to change my text color.</p>
     <hr/>
     <figure style="overflow:visible;" id="spinner"><div class="spinner"></div><center style="margin-top:0.5em"><strong>emscripten</strong></center></figure>
@@ -149,6 +152,17 @@
 			draw();
 		//	alert("asdf");
 		//  document.getElementById("demo").style.color = "red";
+		}
+		var slider = document.getElementById("myRange");
+		var output = document.getElementById("demo");
+		output.innerHTML = slider.value; // Display the default slider value
+
+		// Update the current slider value (each time you drag the slider handle)
+		slider.oninput = function() {
+			output.innerHTML = this.value;
+		}
+		slider.onchange = function() {
+			myFunction();
 		}
 		</script>
   </body>
