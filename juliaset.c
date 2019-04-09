@@ -62,16 +62,16 @@ void draw(const double cx,const double cy){
 			}
 */
 			if(iter<=32){
-				red=iter*8-1;
+				red=(iter<<3)-1;
 				green=blue=0;
 			//	red=green=blue=iter/90.0*255;
 			}else if(iter<=64){
-				green=(iter-32)*8-1;
+				green=((iter-32)<<3)-1;
 //				red=255;
 				red=0;
 				blue=0;
 			}else{
-				blue=(iter-64)*8-1;
+				blue=((iter-64)<<3)-1;
 //				red=green=255;
 				red=green=0;
 				//red=green=blue=0;
