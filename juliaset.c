@@ -23,7 +23,6 @@ void draw(const double cx,const double cy){
 #endif
 	int iter;
 	double zx,zy,zxs,zys;
-	double tmp;
 	double red,green,blue;
 
 //SDL_Surface *screen = SDL_SetVideoMode(XLEN, YLEN, 32, SDL_SWSURFACE);
@@ -37,9 +36,8 @@ void draw(const double cx,const double cy){
 			zxs=zx*zx;
 			zys=zy*zy;
 			while(((zxs+zys)<4.0)&&(iter<MAXITER)){
-				tmp=zxs-zys;
-				zy=2*zx*zy+cy;
-				zx=tmp+cx;
+				zy=(2.0*zx*zy)+cy;
+				zx=zxs-zys+cx;
 				zys=zy*zy;
 				zxs=zx*zx;
 				iter++;
