@@ -32,8 +32,8 @@ void draw(const double cx,const double cy){
 	for(int i=0;i<YLEN;i++){
 		for(int j=0;j<XLEN;j++){
 			iter=0;
-			zx=(j*3.5/XLEN)-2.5;
-			zy=(i*2.0/YLEN)-1;
+			zx=((j<<2)*1.0/XLEN)-2.0;
+			zy=((i<<1)*1.0/YLEN)-1.0;
 			zxs=zx*zx;
 			zys=zy*zy;
 			while(((zxs+zys)<4.0)&&(iter<MAXITER)){
