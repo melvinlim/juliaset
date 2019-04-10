@@ -19,19 +19,27 @@
 
 #define MAXITER 96
 //#define HISTOGRAM
-#define AUTO 1
 #define AUTODELAY 100
 #define STEPSIZE 0.005
 
 Uint32 tc,t0;
 
 int forward;
+int automatic;
 SDL_Surface *screen;
 double cx,cy;
 
 void updateParameters(const double ucx,const double ucy){
 	cx=ucx;
 	cy=ucy;
+}
+
+void checkbox(){
+	if(automatic){
+		automatic=0;
+	}else{
+		automatic=1;
+	}
 }
 
 void draw_loop(){
@@ -42,8 +50,8 @@ void draw_loop(){
 	double zx,zy,zxs,zys;
 	double red,green,blue;
 
-	if((SDL_GetTicks()-t0)>AUTODELAY){
-		if(AUTO){
+	if(automatic){
+		if((SDL_GetTicks()-t0)>AUTODELAY){
 			if(forward){
 				cx+=STEPSIZE;
 				if(cx>CXMAX){
@@ -57,8 +65,8 @@ void draw_loop(){
 					forward=1;
 				}
 			}
+			t0=SDL_GetTicks();
 		}
-		t0=SDL_GetTicks();
 	}
 
 //SDL_Surface *screen = SDL_SetVideoMode(XLEN, YLEN, 32, SDL_SWSURFACE);
@@ -115,6 +123,8 @@ void draw_loop(){
 int main(){
 	t0=0;
 	forward=1;
+	automatic=0;
+	checkbox();
 	SDL_Init(SDL_INIT_VIDEO);
 	screen = SDL_SetVideoMode(XLEN, YLEN, 32, SDL_SWSURFACE);
 	updateParameters(CXINIT,CYINIT);

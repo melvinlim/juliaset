@@ -1,9 +1,9 @@
 OUTPUT =		juliaset
 CXX =				emcc
 CXXFLAGS =	
-LFLAGS =		-O3 -o $(OUTPUT).html --shell-file shell_minimal.html -s EXPORTED_FUNCTIONS='["_main","_updateParameters"]' -s EXTRA_EXPORTED_RUNTIME_METHODS='["cwrap"]'
+LFLAGS =		-O3 -o $(OUTPUT).html --shell-file shell_minimal.html -s EXPORTED_FUNCTIONS='["_main","_checkbox","_updateParameters"]' -s EXTRA_EXPORTED_RUNTIME_METHODS='["cwrap"]' -s ASSERTIONS=1
 OBJECTS =		juliaset.c
 all:		$(OBJECTS)
 	$(CXX) $(LFLAGS) $(OBJECTS)
 clean:
-	rm -f $(OUTPUT).*
+	rm -f $(OUTPUT).html $(OUTPUT).js $(OUTPUT).wasm

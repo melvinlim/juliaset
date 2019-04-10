@@ -77,6 +77,15 @@
 				</div>
 			</div>
 		</div>
+		<div style="display:table;">
+			<div style="display:table-row;">
+				<div style="display:table-cell;">
+					automatic variation: <input type="checkbox" id="myCheck" onclick="checkboxFunction()" checked>
+				</div>
+				<div style="display:table-cell;">
+				</div>
+			</div>
+		</div>
     <hr/>
     <figure style="overflow:visible;" id="spinner"><div class="spinner"></div><center style="margin-top:0.5em"><strong>emscripten</strong></center></figure>
     <div class="emscripten" id="status">Downloading...</div>
@@ -92,6 +101,7 @@
     <textarea style="background-color:#000000;color:white;" class="emscripten" id="output" rows="8"></textarea>
     <hr>
     <script type='text/javascript'>
+			var checkboxFunction;
 			var updateParameters;
       var statusElement = document.getElementById('status');
       var progressElement = document.getElementById('progress');
@@ -99,6 +109,7 @@
 
       var Module = {
 				onRuntimeInitialized: function() {
+					checkboxFunction=Module.cwrap('checkbox',null);
 					updateParameters=Module.cwrap('updateParameters',null,['double','double']);
 				},
         preRun: [],
