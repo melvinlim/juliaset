@@ -16,8 +16,14 @@
 //#define HISTOGRAM
 
 SDL_Surface *screen;
+double cx,cy;
 
-void draw(const double cx,const double cy){
+void updateParameters(const double ucx,const double ucy){
+	cx=ucx;
+	cy=ucy;
+}
+
+void draw_loop(){
 #ifdef HISTOGRAM
 	int histogram[MAXITER]={0};
 #endif
@@ -82,7 +88,8 @@ void draw(const double cx,const double cy){
 int main(){
 	SDL_Init(SDL_INIT_VIDEO);
 	screen = SDL_SetVideoMode(XLEN, YLEN, 32, SDL_SWSURFACE);
-	draw(CXINIT,CYINIT);
+	updateParameters(CXINIT,CYINIT);
+	emscripten_set_main_loop(draw_loop,0,0);
 	printf("Graph of the Julia Set.  Written in C.  Converted to Javascript through Emscripten.\n");
 	printf("Move the sliders to change the picture.\n");
 	return 0;

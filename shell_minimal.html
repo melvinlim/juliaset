@@ -92,17 +92,14 @@
     <textarea style="background-color:#000000;color:white;" class="emscripten" id="output" rows="8"></textarea>
     <hr>
     <script type='text/javascript'>
-			var draw;
+			var updateParameters;
       var statusElement = document.getElementById('status');
       var progressElement = document.getElementById('progress');
       var spinnerElement = document.getElementById('spinner');
 
       var Module = {
 				onRuntimeInitialized: function() {
-					draw=Module.cwrap('draw',null,['double','double']);
-//					Module._main();
-//					draw=Module.cwrap('draw',null,['double']);
-//					draw(-0.835);
+					updateParameters=Module.cwrap('updateParameters',null,['double','double']);
 				},
         preRun: [],
         postRun: [],
@@ -187,16 +184,14 @@
 
 			sliderX.oninput = function() {
 				sliderOutputX.innerHTML = this.value;
-//				draw=Module.cwrap('draw',null,['double']);
-				draw(sliderX.value,sliderY.value);
+				updateParameters(sliderX.value,sliderY.value);
 			}
 			sliderX.onchange = function() {
 			}
 
 			sliderY.oninput = function() {
 				sliderOutputY.innerHTML = this.value;
-//				draw=Module.cwrap('draw',null,['double']);
-				draw(sliderX.value,sliderY.value);
+				updateParameters(sliderX.value,sliderY.value);
 			}
 			sliderY.onchange = function() {
 			}
