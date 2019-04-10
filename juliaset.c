@@ -12,9 +12,20 @@
 #define CXINIT -0.835
 #define CYINIT -0.230
 
+#define CXMAX 1.0
+#define CXMIN -2.5
+#define CYMAX 1.0
+#define CYMIN -1.0
+
 #define MAXITER 96
 //#define HISTOGRAM
+#define AUTO 1
+#define AUTODELAY 100
+#define STEPSIZE 0.005
 
+Uint32 tc,t0;
+
+int forward;
 SDL_Surface *screen;
 double cx,cy;
 
@@ -30,6 +41,25 @@ void draw_loop(){
 	int iter;
 	double zx,zy,zxs,zys;
 	double red,green,blue;
+
+	if((SDL_GetTicks()-t0)>AUTODELAY){
+		if(AUTO){
+			if(forward){
+				cx+=STEPSIZE;
+				if(cx>CXMAX){
+					cx=cx-2*STEPSIZE;
+					forward=0;
+				}
+			}else{
+				cx-=STEPSIZE;
+				if(cx<CXMIN){
+					cx=cx+2*STEPSIZE;
+					forward=1;
+				}
+			}
+		}
+		t0=SDL_GetTicks();
+	}
 
 //SDL_Surface *screen = SDL_SetVideoMode(XLEN, YLEN, 32, SDL_SWSURFACE);
 	if(SDL_MUSTLOCK(screen)) SDL_LockSurface(screen);
@@ -80,16 +110,16 @@ void draw_loop(){
 #endif
 
 	if(SDL_MUSTLOCK(screen)) SDL_UnlockSurface(screen);
-	//  SDL_Flip(screen); 
-//	 SDL_Quit();
-
 }
 
 int main(){
+	t0=0;
+	forward=1;
 	SDL_Init(SDL_INIT_VIDEO);
 	screen = SDL_SetVideoMode(XLEN, YLEN, 32, SDL_SWSURFACE);
 	updateParameters(CXINIT,CYINIT);
 	emscripten_set_main_loop(draw_loop,0,0);
+//	emscripten_set_main_loop_timing(EM_TIMING_RAF,10);
 	printf("Graph of the Julia Set.  Written in C.  Converted to Javascript through Emscripten.\n");
 	printf("Move the sliders to change the picture.\n");
 	return 0;
