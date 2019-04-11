@@ -6,4 +6,4 @@ OBJECTS =		juliaset.c
 all:		$(OBJECTS)
 	$(CXX) $(LFLAGS) $(OBJECTS)
 clean:
-	rm -f $(OUTPUT).html $(OUTPUT).js $(OUTPUT).wasm
+	rm $(OUTPUT).html $(OUTPUT).js $(OUTPUT).wasm
