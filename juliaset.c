@@ -135,7 +135,7 @@ int main(){
 	updateParameters(CXINIT,CYINIT);
 	emscripten_set_main_loop(draw_loop,0,0);
 //	emscripten_set_main_loop_timing(EM_TIMING_RAF,10);
-	printf("Graph of the Julia Set.  Written in C.  Converted to Javascript through Emscripten.\n");
+	printf("Graph of the Julia Set.  Written in C.  Converted to WebASM through Emscripten.\n");
 	printf("Move the sliders to change the picture.\n");
 	return 0;
 }
